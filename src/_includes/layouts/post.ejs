@@ -4,11 +4,240 @@ layout: layouts/base.ejs
 
 <article>
   <header>
-    <h1 class="text-center font-bold text-3xl text-gray-800"><%= title %></h1>
+    <h1 class="text-center font-bold text-3xl text-gray-800">
+      <%= title %>
+    </h1>
     <div class="text-center text-sm mb-8">
-      <%= this.dateFns.format(new Date(date), 'LLLL d, yyyy') %>
+      <%= this.dateFns.format(new Date(date), 'LLLL d, yyyy' ) %>
+    </div>
+    <div class="text-center text-sm mb-8">
+      <%= place %>
     </div>
   </header>
 
   <section class="content"><%- content %></section>
+
+
+
+  <div class="tracks-section" data-tracks='<%- JSON.stringify(tracks || []) %>'>
+    <h3>Faixas</h3>
+    <ul class="track-list">
+      <% if (tracks && tracks.length> 0) { %>
+        <% tracks.forEach((track, index)=> { %>
+          <li class="track-item <%= index === 0 ? 'active' : '' %>" data-track="<%= index %>">
+            <div class="track-info">
+              <div class="track-title">
+                <%= track.name %>
+              </div>
+            </div>
+            <div class="track-duration">
+              <%= track.duration %>
+            </div>
+          </li>
+          <% }); %>
+            <% } %>
+    </ul>
+  </div>
+
+  <div class="player-section">
+    <div class="player-container gap-6">
+      <div class="hidden md:block track-details w-1/3">
+        <div class="current-track-title">New York Vibe</div>
+        <div class="current-track-genre">Pop • 0:43</div>
+      </div>
+      <div class="flex-grow">
+        <div class="player-controls ">
+          <button class="control-btn" id="prev-btn">
+            <i class="fas fa-step-backward"></i>
+          </button>
+          <button class="control-btn play-btn" id="play-btn">
+            <i class="ml-1 fas fa-play"></i>
+          </button>
+          <button class="control-btn" id="next-btn">
+            <i class="fas fa-step-forward"></i>
+          </button>
+        </div>
+        <div class="progress-container flex align-middle">
+          <span class="text-sm" id="current-time">0:00</span>
+          <div class="progress-bar flex-grow mx-1 mt-2" id="progress-bar">
+            <div class="progress" id="progress"></div>
+          </div>
+          <span class="text-sm" id="total-time">0:43</span>
+        </div>
+      </div>
+      <div class="hidden md:flex items-center">
+        <div class="volume-icon">
+          <i class="fas fa-volume-up"></i>
+        </div>
+        <input type="range" min="0" max="1" step="0.01" value="0.7" class="volume-slider" id="volume-slider">
+      </div>
+    </div>
+  </div>
 </article>
+<script>
+
+  // Load tracks from front matter
+  const tracksElement = document.querySelector('.tracks-section');
+  const tracks = tracksElement ? JSON.parse(tracksElement.dataset.tracks) : [];
+
+  // Initialize Howler.js player
+  let currentTrack = 0;
+  let isPlaying = false;
+  let sound = null;
+
+  // Format time from seconds to MM:SS
+  function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+  }
+
+  // Initialize the first track
+  function initTrack(trackIndex) {
+    if (sound) {
+      sound.unload();
+    }
+
+    currentTrack = trackIndex;
+    const track = tracks[trackIndex];
+
+    // Update UI
+    document.querySelector('.current-track-title').textContent = track.name;
+    document.querySelector('.current-track-genre').textContent = `${track.duration}`;
+    document.getElementById('total-time').textContent = track.duration;
+
+    // Update active track in list
+    document.querySelectorAll('.track-item').forEach((item, index) => {
+      if (index === trackIndex) {
+        item.classList.add('active');
+      } else {
+        item.classList.remove('active');
+      }
+    });
+
+    // Create new Howl instance
+    sound = new Howl({
+      src: [track.file],
+      html5: true,
+      volume: document.getElementById('volume-slider').value,
+      onplay: () => {
+        isPlaying = true;
+        document.getElementById('play-btn').innerHTML = '<i class="fas fa-pause"></i>';
+        requestAnimationFrame(updateProgress);
+      },
+      onpause: () => {
+        isPlaying = false;
+        document.getElementById('play-btn').innerHTML = '<i class="ml-1 fas fa-play"></i>';
+      },
+      onend: () => {
+        isPlaying = false;
+        document.getElementById('play-btn').innerHTML = '<i class="ml-1 fas fa-play"></i>';
+        playNextTrack();
+      },
+      onload: () => {
+        // Update total time if available
+        if (sound.duration()) {
+          document.getElementById('total-time').textContent = formatTime(sound.duration());
+        }
+      }
+    });
+
+    // Reset progress
+    document.getElementById('progress').style.width = '0%';
+    document.getElementById('current-time').textContent = '0:00';
+  }
+
+  // Play/pause toggle
+  function togglePlay() {
+    if (!sound) return;
+
+    if (isPlaying) {
+      sound.pause();
+    } else {
+      sound.play();
+    }
+  }
+
+  // Play next track
+  function playNextTrack() {
+    const nextTrack = (currentTrack + 1) % tracks.length;
+    initTrack(nextTrack);
+    sound.play();
+  }
+
+  // Play previous track
+  function playPrevTrack() {
+    const prevTrack = currentTrack === 0 ? tracks.length - 1 : currentTrack - 1;
+    initTrack(prevTrack);
+    sound.play();
+  }
+
+  // Update progress bar
+  function updateProgress() {
+    if (!sound || !isPlaying) return;
+
+    const currentTime = sound.seek();
+    const duration = sound.duration();
+    const progressPercent = (currentTime / duration) * 100;
+
+    document.getElementById('progress').style.width = `${progressPercent}%`;
+    document.getElementById('current-time').textContent = formatTime(currentTime);
+
+    if (isPlaying) {
+      requestAnimationFrame(updateProgress);
+    }
+  }
+
+  // Seek in track
+  function seekTrack(e) {
+    if (!sound || !sound.playing()) return;
+
+    const progressBar = document.getElementById('progress-bar');
+    const clickX = e.clientX - progressBar.getBoundingClientRect().left;
+    const progressBarWidth = progressBar.clientWidth;
+    const seekPercent = clickX / progressBarWidth;
+    const duration = sound.duration();
+
+    sound.seek(duration * seekPercent);
+  }
+
+  // Initialize event listeners
+  document.addEventListener('DOMContentLoaded', () => {
+    // Initialize first track
+    initTrack(0);
+
+    // Play button
+    document.getElementById('play-btn').addEventListener('click', togglePlay);
+
+    // Next button
+    document.getElementById('next-btn').addEventListener('click', playNextTrack);
+
+    // Previous button
+    document.getElementById('prev-btn').addEventListener('click', playPrevTrack);
+
+    // Track selection
+    document.querySelectorAll('.track-item').forEach((item, index) => {
+      item.addEventListener('click', () => {
+        initTrack(index);
+        sound.play();
+      });
+    });
+
+    // Progress bar click
+    document.getElementById('progress-bar').addEventListener('click', seekTrack);
+
+    // Volume slider
+    document.getElementById('volume-slider').addEventListener('input', function () {
+      if (sound) {
+        sound.volume(this.value);
+      }
+    });
+
+    // Clone project buttons
+    document.querySelectorAll('.action-btn.primary').forEach(button => {
+      button.addEventListener('click', () => {
+        alert('Project cloning functionality would be implemented here. This is a demo.');
+      });
+    });
+  });
+</script>

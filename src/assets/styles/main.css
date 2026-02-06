@@ -84,3 +84,257 @@ a:hover {
 .content th {
   @apply bg-gray-100;
 }
+
+header {
+  border-bottom: 1px solid #e1e5eb;
+  padding-bottom: 15px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.tracks-section {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 25px;
+}
+
+.player-section {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border-top: 1px solid #e1e5eb;
+  padding: 15px 30px;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+}
+
+.player-container {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.track-list {
+  list-style: none;
+}
+
+.track-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid #f0f0f0;
+}
+
+.track-item:hover {
+  background-color: #f8f9fa;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.track-item.active {
+  background-color: #e8f4ff;
+  border-color: #007aff;
+}
+
+.track-info {
+  flex: 1;
+}
+
+.track-title {
+  font-weight: 600;
+  font-size: 16px;
+  color: #1a1a1a;
+}
+
+.track-genre {
+  color: #666;
+  font-size: 14px;
+  margin-top: 3px;
+}
+
+.track-duration {
+  color: #888;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.player-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.player-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.player-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.control-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #007aff;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.control-btn:hover {
+  background-color: #f0f7ff;
+}
+
+.play-btn {
+  width: 46px;
+  height: 46px;
+  font-size: 22px;
+  background-color: #007aff;
+  color: white;
+  margin: 0 15px;
+}
+
+.play-btn:hover {
+  background-color: #0056cc;
+}
+
+.progress-bar {
+  height: 6px;
+  background-color: #e1e5eb;
+  border-radius: 3px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background-color: #007aff;
+  width: 0%;
+  border-radius: 3px;
+  transition: width 0.1s linear;
+}
+
+.time-display {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #666;
+}
+
+.track-details {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.current-track-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 5px;
+}
+
+.current-track-genre {
+  color: #666;
+  font-size: 14px;
+}
+
+.volume-control {
+  display: flex;
+  align-items: center;
+}
+
+.volume-icon {
+  color: #666;
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.volume-slider {
+  flex: 1;
+  height: 5px;
+  -webkit-appearance: none;
+  background: #e1e5eb;
+  border-radius: 3px;
+  outline: none;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #007aff;
+  cursor: pointer;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.action-btn {
+  flex: 1;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #e1e5eb;
+  background-color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.action-btn:hover {
+  background-color: #f8f9fa;
+}
+
+.action-btn.primary {
+  background-color: #007aff;
+  color: white;
+  border-color: #007aff;
+}
+
+.action-btn.primary:hover {
+  background-color: #0056cc;
+}
+
+@media (max-width: 900px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.separator {
+  height: 1px;
+  background-color: #e1e5eb;
+  margin: 25px 0;
+}

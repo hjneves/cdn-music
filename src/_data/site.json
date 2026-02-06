@@ -1,8 +1,8 @@
 {
-  "site_name": "Starter",
-  "title": "Eleventy Starter Boilerplate",
-  "description": "Starter code for your 11ty blog Boilerplate",
+  "site_name": "Coro das Nações",
+  "title": "Coro das Nações",
+  "description": "Gravações de concertos",
   "url": "https://example.com",
-  "locale": "en",
-  "author": "Anonymous"
+  "locale": "pt",
+  "author": "Humberto"
 }
