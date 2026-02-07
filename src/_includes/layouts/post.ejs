@@ -15,7 +15,7 @@ layout: layouts/base.ejs
     </div>
   </header>
 
-  <section class="content"><%- content %></section>
+  <section class="content -mx-4"><%- content %></section>
 
 
 
@@ -28,6 +28,9 @@ layout: layouts/base.ejs
             <div class="track-info">
               <div class="track-title">
                 <%= track.name %>
+              </div>
+              <div class="track-artist">
+                <%= track.artist %>
               </div>
             </div>
             <div class="track-duration">
@@ -43,7 +46,7 @@ layout: layouts/base.ejs
     <div class="player-container gap-6">
       <div class="hidden md:block track-details w-1/3">
         <div class="current-track-title">New York Vibe</div>
-        <div class="current-track-genre">Pop • 0:43</div>
+        <div class="current-track-artist">Pop • 0:43</div>
       </div>
       <div class="flex-grow">
         <div class="player-controls ">
@@ -103,7 +106,7 @@ layout: layouts/base.ejs
 
     // Update UI
     document.querySelector('.current-track-title').textContent = track.name;
-    document.querySelector('.current-track-genre').textContent = `${track.duration}`;
+    document.querySelector('.current-track-artist').textContent = `${track.artist} • ${track.duration}`;
     document.getElementById('total-time').textContent = track.duration;
 
     // Update active track in list

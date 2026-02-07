@@ -159,7 +159,7 @@ header {
   color: #1a1a1a;
 }
 
-.track-genre {
+.track-artist {
   color: #666;
   font-size: 14px;
   margin-top: 3px;
@@ -258,7 +258,7 @@ header {
   margin-bottom: 5px;
 }
 
-.current-track-genre {
+.current-track-artist {
   color: #666;
   font-size: 14px;
 }
