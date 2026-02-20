@@ -67,7 +67,7 @@
     <div class="border-b border-gray-300">
       <div class="pt-16 pb-8">
         <h1 class="font-black text-5xl text-gray-800">
-          <%= site.title %>
+          <%= (siteTitle || site.title) %>
         </h1>
         <div class="text-xl">
           <%= site.description %>
@@ -76,7 +76,7 @@
       <nav>
         <ul class="flex flex-wrap text-xl">
           <li class="mr-6">
-            <a class="text-gray-700 border-none hover:no-underline hover:text-gray-800" href="/">Home</a>
+            <a class="text-gray-700 border-none hover:no-underline hover:text-gray-800" href="/<%= (choir || '') %>">Home</a>
           </li>
           <!-- <li class="mr-6">
             <a class="text-gray-700 border-none hover:no-underline hover:text-gray-800"
