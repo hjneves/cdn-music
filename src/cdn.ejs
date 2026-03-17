@@ -1,33 +1,35 @@
 ---
 siteTitle: 'Coro das Nações'
-choir: ''
-pagination:
-  data: collections.posts_cdn
-  size: 5
-  alias: list
-  reverse: true
-permalink: '<% if (pagination.pageNumber > 0) { %><%= `page${pagination.pageNumber + 1}/cdn/index.html` %><% } else { %>cdn/index.html<% } %>'
-eleventyComputed:
-  title: '<% if (pagination.pageNumber > 0) { %><%= `Page ${pagination.pageNumber + 1} | ${site.title}` %><% } else { %><%= site.title %><% } %>'
+title: 'Coro das Nações - Concertos e Ensaios'
+choir: 'cdn'
+permalink: 'cdn/index.html'
 ---
-
+<h2 class="text-2xl font-bold">Ensaios</h2>
+<% if (collections.posts_cdn_rehearsals && collections.posts_cdn_rehearsals.length > 0) { %>
 <ul>
-  <% list.forEach((post) => { %>
+  <% [...collections.posts_cdn_rehearsals].reverse().forEach((post) => { %>
     <li class="mb-3 flex justify-between">
       <a href="<%= post.url %>"><%= post.data.title %></a>
       <div><%= this.dateFns.format(new Date(post.data.date), 'LLLL d, yyyy') %></div>
     </li>
   <% }) %>
 </ul>
+<% } else { %>
+<p class="text-gray-500">Sem ensaios  </p>
+<% } %>
 
-<div class="text-sm flex justify-between">
-  <% if (pagination.previous) { %>
-  <div>
-    <a href="<%= pagination.previous.replace(/index.html$/, "") %>">← Newer Posts</a>
-  </div>
-  <% } %> <% if (pagination.next) { %>
-  <div class="text-right ml-auto">
-    <a href="<%= pagination.next.replace(/index.html$/, "") %>">Older Posts →</a>
-  </div>
-  <% } %>
-</div>
+<h2 class="text-2xl font-bold mt-6">Concertos</h2>
+<% if (collections.posts_cdn_concerts && collections.posts_cdn_concerts.length > 0) { %>
+<ul>
+  <% [...collections.posts_cdn_concerts].reverse().forEach((post) => { %>
+    <li class="mb-3 flex justify-between">
+      <a href="<%= post.url %>"><%= post.data.title %></a>
+      <div><%= this.dateFns.format(new Date(post.data.date), 'LLLL d, yyyy') %></div>
+    </li>
+  <% }) %>
+</ul>
+<% } else { %>
+<p class="text-gray-500">Sem concertos</p>
+<% } %>
+
+

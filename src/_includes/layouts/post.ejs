@@ -53,8 +53,14 @@ layout: layouts/base.ejs
           <button class="control-btn" id="prev-btn">
             <i class="fas fa-step-backward"></i>
           </button>
+          <button class="control-btn" id="skip-back-btn">
+            <i class="fas fa-undo"></i>
+          </button>
           <button class="control-btn play-btn" id="play-btn">
             <i class="ml-1 fas fa-play"></i>
+          </button>
+          <button class="control-btn" id="skip-forward-btn">
+            <i class="fas fa-redo"></i>
           </button>
           <button class="control-btn" id="next-btn">
             <i class="fas fa-step-forward"></i>
@@ -175,6 +181,20 @@ layout: layouts/base.ejs
     sound.play();
   }
 
+  // Skip back 5 seconds
+  function skipBack() {
+    if (!sound) return;
+    const newTime = Math.max(0, sound.seek() - 5);
+    sound.seek(newTime);
+  }
+
+  // Skip forward 5 seconds
+  function skipForward() {
+    if (!sound) return;
+    const newTime = Math.min(sound.duration(), sound.seek() + 5);
+    sound.seek(newTime);
+  }
+
   // Update progress bar
   function updateProgress() {
     if (!sound || !isPlaying) return;
@@ -217,6 +237,12 @@ layout: layouts/base.ejs
 
     // Previous button
     document.getElementById('prev-btn').addEventListener('click', playPrevTrack);
+
+    // Skip back button
+    document.getElementById('skip-back-btn').addEventListener('click', skipBack);
+
+    // Skip forward button
+    document.getElementById('skip-forward-btn').addEventListener('click', skipForward);
 
     // Track selection
     document.querySelectorAll('.track-item').forEach((item, index) => {

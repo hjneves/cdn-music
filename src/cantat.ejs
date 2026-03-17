@@ -1,35 +1,34 @@
 ---
 siteTitle: 'Cantat'
+title: 'Cantat - Concertos e Ensaios'
 choir: 'cantat'
-pagination:
-  data: collections.posts_cantat
-  size: 5
-  alias: list
-  reverse: true
-permalink: '<% if (pagination.pageNumber > 0) { %><%= `page${pagination.pageNumber + 1}/cantat/index.html` %><% } else { %>cantat/index.html<% } %>'
-eleventyComputed:
-  title: '<% if (pagination.pageNumber > 0) { %><%= `Page ${pagination.pageNumber + 1} | ${site.title}` %><% } else { %><%= site.title %><% } %>'
+permalink: 'cantat/index.html'
 ---
 
+<h2 class="text-2xl font-bold">Concerts</h2>
+<% if (collections.posts_cantat_concerts && collections.posts_cantat_concerts.length > 0) { %>
 <ul>
-  <% list.forEach((post) => { %>
-    <% if (post.data.choir === 'cantat') { %>
+  <% [...collections.posts_cantat_concerts].reverse().forEach((post) => { %>
     <li class="mb-3 flex justify-between">
       <a href="<%= post.url %>"><%= post.data.title %></a>
       <div><%= this.dateFns.format(new Date(post.data.date), 'LLLL d, yyyy') %></div>
     </li>
-    <% } %>
   <% }) %>
 </ul>
+<% } else { %>
+<p class="text-gray-500">No concerts yet</p>
+<% } %>
 
-<div class="text-sm flex justify-between">
-  <% if (pagination.previous) { %>
-  <div>
-    <a href="<%= pagination.previous.replace(/index.html$/, "") %>">← Newer Posts</a>
-  </div>
-  <% } %> <% if (pagination.next) { %>
-  <div class="text-right ml-auto">
-    <a href="<%= pagination.next.replace(/index.html$/, "") %>">Older Posts →</a>
-  </div>
-  <% } %>
-</div>
+<h2 class="text-2xl font-bold mt-6">Rehearsals</h2>
+<% if (collections.posts_cantat_rehearsals && collections.posts_cantat_rehearsals.length > 0) { %>
+<ul>
+  <% [...collections.posts_cantat_rehearsals].reverse().forEach((post) => { %>
+    <li class="mb-3 flex justify-between">
+      <a href="<%= post.url %>"><%= post.data.title %></a>
+      <div><%= this.dateFns.format(new Date(post.data.date), 'LLLL d, yyyy') %></div>
+    </li>
+  <% }) %>
+</ul>
+<% } else { %>
+<p class="text-gray-500">No rehearsals yet</p>
+<% } %>
