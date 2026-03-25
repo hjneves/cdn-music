@@ -338,3 +338,7 @@ header {
   background-color: #e1e5eb;
   margin: 25px 0;
 }
+
+section img {
+  margin: 0 auto;
+}
