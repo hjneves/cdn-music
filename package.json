@@ -19,6 +19,9 @@
     "lint": "eslint --ext .js ."
   },
   "license": "ISC",
+  "dependencies": {
+    "date-fns": "^2.21.3"
+  },
   "devDependencies": {
     "@11ty/eleventy": "^0.12.1",
     "@11ty/eleventy-plugin-syntaxhighlight": "^3.1.1",
@@ -27,7 +30,6 @@
     "cross-env": "^7.0.3",
     "css-loader": "^5.2.6",
     "cssnano": "^5.0.4",
-    "date-fns": "^2.21.3",
     "eslint": "^7.27.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.23.3",

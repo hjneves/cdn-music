@@ -5,6 +5,7 @@ description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 place: Igreja Nossa Senhora dos Navegantes - Parque das Nações
 date: 2025-12-14T00:00:00Z
 choir: cdn
+image: /assets/images/posts/magnificat-cartaz.jpg
 tracks:
   - name: 1. Magnificat Anima Mea
     artist: Kim André Arnesen

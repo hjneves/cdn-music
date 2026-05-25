@@ -5,6 +5,7 @@ description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 place: IPDJ
 date: 2026-03-25T00:00:00Z
 choir: cdn
+image: /assets/images/posts/il-est-bel-et-bon.png
 tracks:
   - name: "Il est bel et bon"
     artist: Andrea Scalia (Pierre Passereau)

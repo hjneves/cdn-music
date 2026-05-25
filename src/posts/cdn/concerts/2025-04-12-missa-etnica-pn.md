@@ -5,6 +5,7 @@ description: Missa étnica para a paz.
 place: Igreja Nossa Senhora dos Navegantes - Parque das Nações
 date: 2025-04-12T21:30:00Z
 choir: cdn
+image: /assets/images/posts/missa-etnica-cartaz.jpg
 tracks:
   - name: 1. Peace to the World
     artist: Lorenz Maierhofer

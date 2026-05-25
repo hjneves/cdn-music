@@ -5,6 +5,7 @@ description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 place: Associação Música Lisboa Cantat
 date: 2026-02-20T00:00:00Z
 choir: cantat
+image: /assets/images/posts/carmina-burana.jpg
 tracks:
   - name: Carmina Burana- Fortuna Imperatrix Mundi - O Fortuna
     artist: Carl Orff

@@ -8,7 +8,7 @@ layout: layouts/base.ejs
       <%= title %>
     </h1>
     <div class="text-center text-sm mb-8">
-      <%= this.dateFns.format(new Date(date), 'LLLL d, yyyy' ) %>
+      <%= this.dateFns.format(new Date(date), "d 'de' MMMM 'de' yyyy", { locale: ptLocale }) %>
     </div>
     <div class="text-center text-sm mb-8">
       <%= place %>

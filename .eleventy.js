@@ -3,6 +3,7 @@ const path = require('path');
 
 const htmlmin = require('html-minifier');
 const dateFns = require('date-fns');
+const ptLocale = require('date-fns/locale/pt');
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 
 module.exports = function (eleventyConfig) {
@@ -16,6 +17,7 @@ module.exports = function (eleventyConfig) {
     rmWhitespace: true,
     context: {
       dateFns,
+      ptLocale,
     },
   });
 

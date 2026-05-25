@@ -5,6 +5,7 @@ description: Viagem pelo musicais
 place: Esplanando - Parque das Nações
 date: 2023-07-21T19:30:00Z
 choir: cdn
+image: /assets/images/posts/musicais-cartaz.jpg
 tracks:
   - name: 1. América
     artist: West Side Story

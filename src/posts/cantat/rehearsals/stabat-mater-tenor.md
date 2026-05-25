@@ -5,6 +5,7 @@ description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 place: Associação Música Lisboa Cantat
 date: 2026-02-20T00:00:00Z
 choir: cantat
+image: /assets/images/posts/stabat-mater.jpg
 tracks:
   - name: Part 1 - Stabat Mater - Tenor
     artist: Rheinberger

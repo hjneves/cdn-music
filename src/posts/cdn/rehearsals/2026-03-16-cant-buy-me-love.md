@@ -5,6 +5,7 @@ description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 place: IPDJ
 date: 2026-03-16T00:00:00Z
 choir: cdn
+image: /assets/images/posts/the-beatles-8.jpg
 tracks:
   - name: "Can t Buy Me Love"
     artist: The King s Singers (The Beatles)

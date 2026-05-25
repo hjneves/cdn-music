@@ -5,6 +5,7 @@ description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 place: IPDJ
 date: 2026-03-25T00:00:00Z
 choir: cdn
+image: /assets/images/posts/thomas-tallis.jpeg
 tracks:
   - name: "If Ye Love Me"
     artist: The Mancunium Consort

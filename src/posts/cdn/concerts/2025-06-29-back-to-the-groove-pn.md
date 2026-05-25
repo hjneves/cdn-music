@@ -5,6 +5,7 @@ description: Missa étnica para a paz.
 place: Esplanando - Parque das Nações
 date: 2025-06-29T19:30:00Z
 choir: cdn
+image: /assets/images/posts/back-to-the-groove-cartaz.jpg
 tracks:
   - name: 1. Bohemian Rhapsody
     artist: Queen
