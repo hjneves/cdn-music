@@ -7,6 +7,11 @@ function isValidId(id) {
   return typeof id === 'string' && id.startsWith('/assets/music/') && id.length <= 200;
 }
 
+// Blob keys must not start with "/"; the client encodes the rest itself
+function toKey(id) {
+  return id.slice(1);
+}
+
 function json(body, status = 200) {
   return new Response(JSON.stringify(body), {
     status,
@@ -14,7 +19,9 @@ function json(body, status = 200) {
   });
 }
 
-// Read the count, write count + 1 only if nobody changed it meanwhile
+// Read the count, write count + 1 only if nobody changed it meanwhile.
+// Retries must run one after another, so awaiting inside the loop is intended.
+/* eslint-disable no-await-in-loop */
 async function increment(store, key) {
   for (let attempt = 0; attempt < MAX_RETRIES; attempt += 1) {
     const entry = await store.getWithMetadata(key, { type: 'json' });
@@ -25,6 +32,7 @@ async function increment(store, key) {
   }
   return null;
 }
+/* eslint-enable no-await-in-loop */
 
 export default async (req) => {
   const store = getStore({ name: 'plays', consistency: 'strong' });
@@ -34,7 +42,7 @@ export default async (req) => {
     const counts = {};
     await Promise.all(
       ids.map(async (id) => {
-        counts[id] = (await store.get(encodeURIComponent(id), { type: 'json' })) || 0;
+        counts[id] = (await store.get(toKey(id), { type: 'json' })) || 0;
       }),
     );
     return json(counts);
@@ -49,7 +57,7 @@ export default async (req) => {
     }
     if (!isValidId(id)) return json({ error: 'Invalid id' }, 400);
 
-    const count = await increment(store, encodeURIComponent(id));
+    const count = await increment(store, toKey(id));
     if (count === null) return json({ error: 'Busy, try again' }, 409);
     return json({ id, count });
   }
