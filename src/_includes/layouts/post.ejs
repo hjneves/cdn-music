@@ -33,6 +33,7 @@ layout: layouts/base.ejs
                 <%= track.artist %>
               </div>
             </div>
+            <span class="track-plays" hidden></span>
             <div class="track-duration">
               <%= track.duration %>
             </div>
@@ -94,6 +95,46 @@ layout: layouts/base.ejs
   let isPlaying = false;
   let sound = null;
 
+  // Play counts (Netlify Function + Blobs)
+  const PLAYS_URL = '/.netlify/functions/plays';
+  const countedTracks = new Set();
+
+  function showPlays(trackIndex, count) {
+    const el = document.querySelectorAll('.track-item .track-plays')[trackIndex];
+    if (!el) return;
+    el.textContent = `▶ ${count}`;
+    el.hidden = false;
+  }
+
+  // Load counts for all tracks on the page; hidden if the function is unavailable
+  function loadPlays() {
+    if (!tracks.length) return;
+    const ids = tracks.map((track) => track.file).join(',');
+    fetch(`${PLAYS_URL}?ids=${encodeURIComponent(ids)}`)
+      .then((res) => (res.ok ? res.json() : Promise.reject(res)))
+      .then((counts) => {
+        tracks.forEach((track, index) => {
+          if (track.file in counts) showPlays(index, counts[track.file]);
+        });
+      })
+      .catch(() => {});
+  }
+
+  // Count a track once per page load, the first time it starts playing
+  function countPlay(trackIndex) {
+    if (countedTracks.has(trackIndex)) return;
+    countedTracks.add(trackIndex);
+    fetch(PLAYS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: tracks[trackIndex].file }),
+      keepalive: true,
+    })
+      .then((res) => (res.ok ? res.json() : Promise.reject(res)))
+      .then(({ count }) => showPlays(trackIndex, count))
+      .catch(() => {});
+  }
+
   // Format time from seconds to MM:SS
   function formatTime(seconds) {
     const mins = Math.floor(seconds / 60);
@@ -131,6 +172,7 @@ layout: layouts/base.ejs
       volume: document.getElementById('volume-slider').value,
       onplay: () => {
         isPlaying = true;
+        countPlay(trackIndex);
         document.getElementById('play-btn').innerHTML = '<i class="fas fa-pause"></i>';
         requestAnimationFrame(updateProgress);
       },
@@ -228,6 +270,7 @@ layout: layouts/base.ejs
   document.addEventListener('DOMContentLoaded', () => {
     // Initialize first track
     initTrack(0);
+    loadPlays();
 
     // Play button
     document.getElementById('play-btn').addEventListener('click', togglePlay);

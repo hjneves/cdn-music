@@ -171,6 +171,12 @@ header {
   font-weight: 500;
 }
 
+.track-plays {
+  color: #aaa;
+  font-size: 13px;
+  margin-right: 12px;
+}
+
 .player-header {
   display: flex;
   align-items: center;
