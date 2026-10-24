@@ -12,13 +12,21 @@ tracks:
     duration: '1:18'
     file: /assets/music/cdn/cant-buy-me-love/cant-buy-me-love.mp3
   - name: "1. Can t Buy Me Love (Alto)"
-    artist: "@Mahorndawg (The Beatles)"
-    duration: '1:52'
-    file: /assets/music/cdn/cant-buy-me-love/cant-buy-me-love-alto.mp3
+    artist: "Frederico Projeto (The Beatles)"
+    duration: '1:33'
+    file: /assets/music/cdn/cant-buy-me-love/cant-buy-me-love-alto.m4a
   - name: 2. Can t Buy Me Love (Tenor)
-    artist: "@Mahorndawg (The Beatles)"
-    duration: '1:47'
-    file: /assets/music/cdn/cant-buy-me-love/cant-buy-me-love-tenor.mp3
+    artist: "Frederico Projeto (The Beatles)"
+    duration: '1:31'
+    file: /assets/music/cdn/cant-buy-me-love/cant-buy-me-love-tenor.m4a
+  - name: 2. Can t Buy Me Love (Soprano)
+    artist: "Frederico Projeto (The Beatles)"
+    duration: '1:32'
+    file: /assets/music/cdn/cant-buy-me-love/cant-buy-me-love-soprano.m4a
+  - name: 2. Can t Buy Me Love (Baixo)
+    artist: "Frederico Projeto (The Beatles)"
+    duration: '1:29'
+    file: /assets/music/cdn/cant-buy-me-love/cant-buy-me-love-baixo.m4a
 ---
 
 
