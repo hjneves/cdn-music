@@ -11,6 +11,10 @@ tracks:
     artist: The Kings Singers (Billy Joel)
     duration: '3:49'
     file: /assets/music/cdn/and-so-it-goes/and-so-it-goes.mp3
+  - name: "And So It Goes"
+    artist: Sydney Shannon (Billy Joel)
+    duration: '3:17'
+    file: /assets/music/cdn/and-so-it-goes/and-so-it-goes-alto.mp3
 ---
 
 
